@@ -1,80 +1,225 @@
 # InterviewMate – Agentic AI Interview Trainer
 
-An AI-powered Interview Trainer Agent built on **IBM watsonx Orchestrate**, using **IBM Granite models** and a **RAG-based knowledge store**, that helps students and job seekers prepare for placements.
+An AI-powered Interview Trainer built using **IBM watsonx.ai**, **IBM Granite Foundation Models**, **Python Streamlit**, and a **RAG-based knowledge base**. The application helps students and job seekers prepare for placement interviews by generating personalized interview questions, evaluating responses, and providing constructive feedback.
 
-Built as part of the **IBM SkillsBuild x AICTE University Engagement Program (2026)** — IBM Cloud / Agentic AI track.
+This project was developed as part of the **IBM SkillsBuild x AICTE University Engagement Program (2026)**.
 
-## Problem Statement
+---
 
-Job seekers, especially students and freshers, often struggle to prepare effectively for job interviews, role-specific questions, and behavioral rounds. Information about industry expectations, HR guidelines, and interview patterns is scattered across recruitment portals and unreliable sources. Without personalized, real-time coaching, many candidates walk into interviews underprepared and lose confidence.
+## 📌 Problem Statement
 
-## What InterviewMate Does
+Students and freshers often struggle to prepare effectively for placement interviews due to a lack of personalized guidance, role-specific practice, and constructive feedback.
 
-- **Role-Specific Question Generation** – generates tailored technical + behavioral questions based on job role, experience level, and resume
-- **RAG-Based Retrieval** – fetches role-specific questions, industry expectations, and HR guidelines from a curated knowledge base
-- **Mock Interview & Feedback** – evaluates a candidate's answers and gives model answers with improvement tips
-- **Progress Dashboard** – readiness score and category-wise weak areas across mock sessions
+InterviewMate solves this problem by providing an AI-powered interview coach that:
+- Generates role-specific interview questions.
+- Evaluates candidate responses.
+- Provides improvement suggestions.
+- Helps candidates build confidence before real interviews.
 
-## Tech Stack
+---
+
+## 🚀 Features
+
+- 🎯 Role-specific interview question generation
+- 🤖 AI-powered interview coaching using IBM Granite Models
+- 📝 Answer evaluation with personalized feedback
+- 📊 Readiness scoring
+- 📚 Knowledge-base assisted interview guidance (RAG-lite)
+- 💻 Modern Streamlit web application
+- ☁️ Live deployment using Streamlit Community Cloud
+
+---
+
+## 🛠 Tech Stack
 
 | Component | Technology |
-|---|---|
-| LLM inference | IBM watsonx.ai — direct API (`ibm-watsonx-ai` SDK) |
-| Model | `ibm/granite-4-h-small` (falls back to Meta/Mistral models if Granite isn't available in your region) |
-| Front-end | Python Streamlit |
-| Retrieval | RAG-lite — the interview knowledge base is injected into the system prompt |
-| Hosting | IBM Cloud Lite (watsonx.ai project) + Streamlit Community Cloud (free) for the live app |
+|------------|------------|
+| AI Platform | IBM watsonx.ai |
+| Foundation Model | IBM Granite 4 H Small |
+| SDK | ibm-watsonx-ai |
+| Frontend | Python Streamlit |
+| Programming Language | Python |
+| Knowledge Base | Markdown (RAG-lite) |
+| Version Control | GitHub |
+| Deployment | Streamlit Community Cloud |
 
-## Repository Contents
+---
+
+## 🏗 System Architecture
+
+```
+                User
+                  │
+                  ▼
+          Streamlit Web App
+                  │
+                  ▼
+       IBM watsonx.ai API (SDK)
+                  │
+                  ▼
+      IBM Granite Foundation Model
+                  │
+                  ▼
+     Interview Knowledge Base (RAG)
+                  │
+                  ▼
+      Personalized Interview Response
+```
+
+---
+
+## 📂 Repository Structure
+
+```
+InterviewMate/
+│
+├── app_streamlit.py
+├── requirements.txt
+├── Interview_Question_Bank_KnowledgeBase.md
+├── architecture_diagram.png
+├── app.json
+├── README.md
+└── .gitignore
+```
+
+---
+
+## 📄 Repository Contents
 
 | File | Description |
-|---|---|
-| `app_streamlit.py` | The working Streamlit app — calls watsonx.ai directly using Project ID, Region URL, API Key, and Model ID |
-| `requirements.txt` | Python dependencies |
-| `app.json` | Reference agent definition (matches the watsonx Orchestrate ADK schema, in case Orchestrate is also used) |
-| `Interview_Question_Bank_KnowledgeBase.md` | The knowledge document used for RAG (interview questions, HR guidelines) |
-| `problemstatement.pdf` | Original AICTE / IBM SkillsBuild problem statement this project responds to |
-| `InterviewMate_Agentic_AI_Project_Submission_updated.pptx` | Full project presentation with architecture, screenshots, and evaluation-criteria mapping |
-| `screenshots/` | Screenshots of the app running (terminal, browser UI, sample conversations) |
+|------|-------------|
+| app_streamlit.py | Main Streamlit application |
+| requirements.txt | Python dependencies |
+| Interview_Question_Bank_KnowledgeBase.md | Knowledge base for interview preparation |
+| architecture_diagram.png | System architecture diagram |
+| app.json | Project configuration |
+| README.md | Project documentation |
 
-## How to Get Your Credentials
+---
 
-1. Sign up at [IBM Cloud](https://cloud.ibm.com) and create a **watsonx.ai** project (Lite plan is free)
-2. In the project, go to **Manage → General** to copy your **Project ID**
-3. Go to **IBM Cloud IAM → API keys** and create an **API key**
-4. Note your **region URL** based on where your project is provisioned:
-   - Dallas: `https://us-south.ml.cloud.ibm.com`
-   - London: `https://eu-gb.ml.cloud.ibm.com`
-   - Frankfurt: `https://eu-de.ml.cloud.ibm.com`
-   - Tokyo: `https://jp-tok.ml.cloud.ibm.com`
-5. Pick a **Model ID** available in your region — `ibm/granite-4-h-small` if Granite is available, otherwise a Meta/Mistral model shown in your project's model catalog
+## ⚙️ How It Works
 
-## How to Run Locally
+1. User enters interview requirements.
+2. The application sends the prompt to IBM watsonx.ai.
+3. IBM Granite Foundation Model generates interview questions.
+4. The knowledge base provides additional interview context.
+5. AI evaluates candidate responses and provides suggestions.
+6. Interview readiness score is displayed.
+
+---
+
+## ☁️ IBM Cloud Setup
+
+1. Create an IBM Cloud account.
+2. Create a **watsonx.ai Project (Lite Plan)**.
+3. Copy your **Project ID**.
+4. Generate an **IBM Cloud API Key**.
+5. Note your **Region URL**.
+6. Select a supported IBM Granite model.
+
+---
+
+## ▶️ Run Locally
+
+### Create Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+### Activate Environment
+
+**Windows**
+
+```bash
+venv\Scripts\activate
+```
+
+### Install Dependencies
 
 ```bash
 pip install -r requirements.txt
-export WATSONX_API_KEY="your-api-key"
-export WATSONX_URL="https://us-south.ml.cloud.ibm.com"
-export WATSONX_PROJECT_ID="your-project-id"
-export WATSONX_MODEL_ID="ibm/granite-4-h-small"
+```
+
+### Set Environment Variables (PowerShell)
+
+```powershell
+$env:WATSONX_API_KEY="your_api_key"
+$env:WATSONX_URL="https://eu-de.ml.cloud.ibm.com"
+$env:WATSONX_PROJECT_ID="your_project_id"
+$env:WATSONX_MODEL_ID="ibm/granite-4-h-small"
+```
+
+### Run the Application
+
+```bash
 streamlit run app_streamlit.py
 ```
 
-## How to Deploy for Free (Streamlit Community Cloud)
+---
 
-1. Push this repo to GitHub (public)
-2. Go to [share.streamlit.io](https://share.streamlit.io) → sign in with GitHub → "New app"
-3. Select this repo and `app_streamlit.py` as the entry point
-4. Under **Advanced settings → Secrets**, paste:
-   ```
-   WATSONX_API_KEY = "your-api-key"
-   WATSONX_URL = "https://us-south.ml.cloud.ibm.com"
-   WATSONX_PROJECT_ID = "your-project-id"
-   WATSONX_MODEL_ID = "ibm/granite-4-h-small"
-   ```
-5. Deploy — you'll get a free live link to put in your PPT and submission form
+## 🌐 Deploy on Streamlit Community Cloud
 
-## Author
+1. Push the repository to GitHub.
+2. Open Streamlit Community Cloud.
+3. Create a New App.
+4. Select:
+   - Repository: **Interview-Mate**
+   - Branch: **main**
+   - Main File: **app_streamlit.py**
+5. Under **Advanced Settings → Secrets**, add:
 
-Preeti — B.Tech (IT), Madhav Institute of Technology and Science (MITS), Gwalior
-IBM SkillsBuild Virtual Internship, 2026
+```toml
+WATSONX_API_KEY="your_api_key"
+WATSONX_URL="https://eu-de.ml.cloud.ibm.com"
+WATSONX_PROJECT_ID="your_project_id"
+WATSONX_MODEL_ID="ibm/granite-4-h-small"
+```
+
+6. Click **Deploy**.
+
+---
+
+## 💬 Sample Prompt
+
+```
+Hi, my name is Preeti.
+
+I am preparing for Infosys.
+
+Role: Software Developer
+
+Language: Java
+
+Difficulty: Medium
+
+Please start my mock interview.
+```
+
+---
+
+## 🔮 Future Enhancements
+
+- Resume upload support
+- PDF interview report generation
+- Voice-based interview simulation
+- Multi-round interview support
+- User authentication
+- Performance analytics dashboard
+
+---
+
+## 🔗 Live Demo
+
+**Streamlit Application**
+
+https://interview-mate-3jnbwasegzzs8dzckcxaws.streamlit.app/
+
+**GitHub Repository**
+
+https://github.com/PreetiGautam23/Interview-Mate
+
+---
+
+
+
